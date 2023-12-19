@@ -9,3 +9,6 @@ pub fn date_time() {
     println!("{:?}", local_time);
 }
 
+fn main(){
+    date_time()
+}

@@ -1,9 +1,3 @@
-// mod datetime;
-
-// fn main() {
-//     datetime::date_time();
-// }
-
 //Import from the chrono crate
 use chrono::naive::NaiveDate;
 use chrono::Local;
@@ -18,7 +12,7 @@ struct EventDate {
 impl EventDate {
 
     pub fn new(event_name: &str, year: i32, month: u32, day: u32) -> Result<Self, &'static str> {
-        
+
         let event_date = NaiveDate::from_ymd_opt(year, month, day);
 
         match event_date {
@@ -41,11 +35,11 @@ fn main() {
 
     match EventDate::new("Rust Demo Meeting", 2023, 10, 27) {
         Ok(event) => {
-            
+
             println!("Event: {}", event.event_name);
             println!("Event Date: {}", event.event_date);
 
-           
+
             if event.is_today() {
                 println!("This event is scheduled for today!");
             } else {
@@ -57,4 +51,3 @@ fn main() {
         }
     }
 }
-
