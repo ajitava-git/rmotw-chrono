@@ -1,21 +1,33 @@
-use chrono::format::StrftimeItems;
-use chrono::DateTime;
+use chrono::format::{ParseError, StrftimeItems};
+use chrono::{DateTime, Local};
+
+struct NewDateTime {
+    datetime: DateTime<Local>,
+}
+
+impl NewDateTime {
+    fn new(datetime_str: &str, format_str: &str) -> Result<Self, ParseError> {
+        let datetime = DateTime::parse_from_str(datetime_str, format_str)?;
+        Ok(Self { datetime: datetime.into() })
+    }
+
+    fn format_with_items(&self, items: StrftimeItems) -> String {
+        self.datetime.format_with_items(items).to_string()
+    }
+}
 
 fn main() {
-    // Define a custom date and time format
+    // Custom date and time format
     let custom_format = "%Y-%m-%d %H:%M:%S %:z";
     
-    // A sample date and time string in the custom format with time zone information
-    let date_time_string = "2023-12-20 02:30:00 +05:00";
-    
-    // Parse the date and time string into a DateTime object
-    let parsed_datetime = DateTime::parse_from_str(date_time_string, custom_format);
+    // Date time string in custom format with timezone 
+    let date_time_string = "2024-01-01 02:30:00 +05:30";
 
-    match parsed_datetime {
-        Ok(dt) => {
-            // Format the parsed DateTime object into a different format
-            let new_format = StrftimeItems::new("%A, %d %B %Y %H:%M:%S");
-            let formatted_datetime = dt.format_with_items(new_format);
+    match NewDateTime::new(date_time_string, custom_format) {
+        Ok(my_datetime) => {
+            // Formating the parsed DateTime object into a different format using StrftimeItems submodule
+            let new_format_items = StrftimeItems::new("%A, %d %B %Y %H:%M:%S");
+            let formatted_datetime = my_datetime.format_with_items(new_format_items);
 
             println!("Parsed and formatted date and time: {}", formatted_datetime);
         }
