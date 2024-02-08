@@ -24,7 +24,7 @@ impl Event {
 fn main() {
     // Create an event
     let event_name = "Meeting";
-    let event_timestamp = Local.ymd(2024, 02, 15).and_hms_opt(14, 30, 0).unwrap();
+    let event_timestamp = Local.with_ymd_and_hms(2024, 02, 15, 14, 30, 0).unwrap();
     let event = Event::new(event_name, event_timestamp);
 
     // Print event details
