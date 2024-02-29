@@ -1,6 +1,10 @@
-extern crate chrono;
+// This script demonstrate working with events and date/time calculations using the 'prelude' module.
 
-use chrono::prelude::*;
+// It provides methods to create a new event, calculate the number of days until the event occurs, and format the event timestamp.
+// The main function creates an event, prints its details, calculates the days until the event
+// occurs from the current date, and formats the event timestamp.
+
+use chrono::prelude::{Local, TimeZone, DateTime};
 
 struct Event {
     name: String,
