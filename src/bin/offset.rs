@@ -17,7 +17,14 @@ fn main() {
                 Some(offset) => offset,
                 None => {
                     eprintln!("Failed to create New York time zone with east offset");
-                    FixedOffset::east_opt(0).unwrap_or_else(|| FixedOffset::east_opt(0).unwrap())
+                    let default_offset = match FixedOffset::east_opt(0) {
+                        Some(offset) => offset,
+                        None => {
+                            eprintln!("Failed to create New York time zone with default east offset");
+                            panic!("Failed to create New York time zone with any offset");
+                        }
+                    };
+                    default_offset
                 }
             }
         }
